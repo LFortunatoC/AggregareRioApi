@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Title_desc extends JsonResource
+class TitleDesc extends JsonResource
 {
     /**
      * Transform the resource into an array.

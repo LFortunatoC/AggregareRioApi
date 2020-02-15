@@ -17,8 +17,8 @@ class CreateEvaluationsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('order_id');
             //$table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->bigInteger('questionPoll_id');
-            //$table->foreign('questionPoll_id')->references('id')->on('questionPolls')->onDelete('cascade');
+            $table->bigInteger('questionpool_id');
+            //$table->foreign('questionpool_id')->references('id')->on('questionpools')->onDelete('cascade');
             $table->bigInteger('client_id');
             //$table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->Integer('evaluationValue');

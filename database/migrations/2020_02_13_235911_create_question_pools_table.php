@@ -13,7 +13,7 @@ class CreateQuestionPoolsTable extends Migration
      */
     public function up()
     {
-        Schema::create('questionPolls', function (Blueprint $table) {
+        Schema::create('questionpools', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('question');
             $table->boolean('active');
@@ -28,6 +28,6 @@ class CreateQuestionPoolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questionPolls');
+        Schema::dropIfExists('questionpools');
     }
 }
