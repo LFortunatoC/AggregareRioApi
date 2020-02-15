@@ -19,7 +19,8 @@ class CreateMenusTable extends Migration
             //$table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->string('picturePath');
             $table->string('logoPath');
-            $table->integer('defaultLang');
+            $table->unsignedBigInteger('defaultLang');
+            $table->foreign('defaultLang')->references('id')->on('languages')->onDelete('cascade');
             $table->boolean('active');
             $table->timestamps();
         });
