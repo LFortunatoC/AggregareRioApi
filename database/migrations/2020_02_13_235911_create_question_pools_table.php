@@ -15,6 +15,8 @@ class CreateQuestionPoolsTable extends Migration
     {
         Schema::create('questionPolls', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('question');
+            $table->boolean('active');
             $table->timestamps();
         });
     }
