@@ -40,7 +40,8 @@ Route::get('language/{id}', 'LanguageController@show');
 
 
 //Routes for Menu
-
+Route::/*middleware('auth:api')->*/post('menu', 'MenuController@store');
+Route::/*middleware('auth:api')->*/patch('menu/{id}', 'MenuController@update');
 Route::/*middleware('auth:api')->*/delete('menu/{id}', 'MenuController@destroy');
 Route::get('menu', 'MenuController@index');
 Route::get('menu/{id}', 'MenuController@show');
