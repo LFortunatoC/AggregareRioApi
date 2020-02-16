@@ -25,7 +25,7 @@ class CreateItemsTable extends Migration
             $table->number('PromoValuePercent');
             $table->number('Value');
             $table->boolean('active');
-            
+            //$table->boolean('active');
         });
     }
 
