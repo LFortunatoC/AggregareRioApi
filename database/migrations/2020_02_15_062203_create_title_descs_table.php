@@ -15,10 +15,10 @@ class CreateTitleDescsTable extends Migration
     {
         Schema::create('titleDescs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('item_id');
-            //$table->foreign('item_id')->references('id')->on('itens')->onDelete('cascade');
-            $table->bigInteger('language_id');
-            //$table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->unsignedBigInteger('item_id');
+            $table->foreign('item_id')->references('id')->on('itens')->onDelete('cascade');
+            $table->unsignedBigInteger('language_id');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->string('title');
             $table->string('description');
             $table->boolean('active');

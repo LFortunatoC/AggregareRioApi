@@ -15,7 +15,7 @@ class CreateQuestionPoolsTable extends Migration
     {
         Schema::create('questionPools', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('language_id');
+            $table->unsignedBigInteger('language_id');
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->string('question');
             $table->boolean('active');

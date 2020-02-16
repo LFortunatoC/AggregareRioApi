@@ -15,8 +15,8 @@ class CreateSubcategoryTable extends Migration
     {
         Schema::create('subcategories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('language_id');
-            //$table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->unsignedBigInteger('language_id');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->string('description');
             $table->boolean('active')->nullable($value=true);
             $table->timestamps();

@@ -15,12 +15,12 @@ class CreateEvaluationsTable extends Migration
     {
         Schema::create('evaluations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('order_id');
+            $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->bigInteger('questionpool_id');
+            $table->unsignedBigInteger('questionpool_id');
             $table->foreign('questionpool_id')->references('id')->on('questionpools')->onDelete('cascade');
-            $table->bigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->unsignedBigInteger('client_id');
+            //$table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->Integer('evaluationValue');
             $table->string('comment');
             $table->timestamps();
