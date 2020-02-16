@@ -15,21 +15,13 @@ class CreateItensTable extends Migration
     {
         Schema::create('itens', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('category_id');
-            //$table->foreign('category__id')->references('id')->on('categorys')->onDelete('cascade');
-            $table->bigInteger('subCategory_id');
-            //$table->foreign('subCategory__id')->references('id')->on('subCategorys')->onDelete('cascade');
-            $table->bigInteger('menu_id');
-            //$table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
-            $table->dateTime('daysAvailable');
-             // VERIFY IF THE TYPE IS CORRECT 
-            $table->dateTime('hoursAvailable');  
-            // VERIFY IF THE TYPE IS CORRECT         
-            $table->string('picturePath');
-            $table->dateTime('promoDays'); 
-            // VERIFY IF THE TYPE IS CORRECT
-            $table->Integer('promoValuePercent');
-            $table->Float('value');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->unsignedBigInteger('subCategory_id');
+            $table->foreign('subCategory_id')->references('id')->on('subCategories')->onDelete('cascade');
+            $table->unsignedBigInteger('menu_id');
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->float('value');
             $table->boolean('active');
             $table->timestamps();
         });

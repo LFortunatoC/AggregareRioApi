@@ -16,7 +16,9 @@ class CreateItemOrderTable extends Migration
         Schema::create('ItemOrders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('order_id');
-            //$table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->bigInteger('item_id');
+            $table->foreign('item_id')->references('id')->on('itens')->onDelete('cascade');
             $table->Integer('qty');
             $table->Float('currPrice');
             $table->boolean('canceled');

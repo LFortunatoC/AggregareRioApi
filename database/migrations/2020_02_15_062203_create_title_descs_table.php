@@ -13,7 +13,7 @@ class CreateTitleDescsTable extends Migration
      */
     public function up()
     {
-        Schema::create('title_descs', function (Blueprint $table) {
+        Schema::create('titleDescs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('item_id');
             //$table->foreign('item_id')->references('id')->on('itens')->onDelete('cascade');
