@@ -45,3 +45,11 @@ Route::/*middleware('auth:api')->*/patch('menu/{id}', 'MenuController@update');
 Route::/*middleware('auth:api')->*/delete('menu/{id}', 'MenuController@destroy');
 Route::get('menu', 'MenuController@index');
 Route::get('menu/{id}', 'MenuController@show');
+
+
+//Routes for Evaluation
+Route::/*middleware('auth:api')->*/post('evaluation', 'EvaluationController@store');
+Route::/*middleware('auth:api')->*/patch('evaluation/{id}', 'EvaluationController@update');
+Route::/*middleware('auth:api')->*/delete('evaluation/{id}', 'EvaluationController@destroy');
+Route::get('evaluation', 'EvaluationController@index');
+Route::get('evaluation/{id}', 'EvaluationController@show');
