@@ -1,8 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use app\item;
+use app\itemOrder;
+use app\Order;
 use Illuminate\Http\Request;
+use App\Http\Resources\ItemOrder as ItemOrderResource;
+use App\Http\Resources\Item as ItemResource;
 
 class ItemOrderController extends Controller
 {
@@ -13,7 +17,8 @@ class ItemOrderController extends Controller
      */
     public function index()
     {
-        //
+        $itemOr = ItemOrder::paginate(10);
+        return ItemOrderResource::collection($itemOr);
     }
 
     /**
@@ -34,7 +39,16 @@ class ItemOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'id' => 'required|int',
+            'item_id' => 'required|int',
+            'qty' => 'required|int'
+
+        ])
+
+        //$user =  User::findOrFail(auth()->user()->id);
+
+        //return response($newOrderItem, 10);
     }
 
     /**
@@ -45,7 +59,9 @@ class ItemOrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $itemOr = ItemOrder::findOrFail($id);
+
+        return response($itemOr,10);
     }
 
     /**
@@ -68,7 +84,21 @@ class ItemOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validationData = $request->validate([
+            'id' => 'required|int',
+        ]);
+
+       $user =  auth()->user()->id;
+       $category = ItemOrder::findOrFail($id);
+
+       $data = [
+           'id'=> $request->has('id')? $request->id: $itemOr->id
+           
+       ];
+
+        $category->update($data);
+
+       return response($itemOr, 10);
     }
 
     /**
@@ -79,6 +109,12 @@ class ItemOrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $user =  auth()->user()->id;
+        $itemOr = ItemOrder::findOrFail($id);
+
+        if($itemOr->delete()) {
+            return response($itemOr,10);
+        }
     }
 }
