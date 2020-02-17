@@ -13,7 +13,7 @@ class CreateItensTable extends Migration
      */
     public function up()
     {
-        Schema::create('itens', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
@@ -21,6 +21,7 @@ class CreateItensTable extends Migration
             $table->foreign('subCategory_id')->references('id')->on('subCategories')->onDelete('cascade');
             $table->unsignedBigInteger('menu_id');
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->string('picturePath')->nullable($value=true);
             $table->float('value');
             $table->boolean('active');
             $table->timestamps();
@@ -34,6 +35,6 @@ class CreateItensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('itens');
+        Schema::dropIfExists('items');
     }
 }
