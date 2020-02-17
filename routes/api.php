@@ -45,3 +45,10 @@ Route::/*middleware('auth:api')->*/patch('menu/{id}', 'MenuController@update');
 Route::/*middleware('auth:api')->*/delete('menu/{id}', 'MenuController@destroy');
 Route::get('menu', 'MenuController@index');
 Route::get('menu/{id}', 'MenuController@show');
+
+//Routes for Item
+Route::/*middleware('auth:api')->*/post('item', 'ItemController@store');
+Route::/*middleware('auth:api')->*/patch('item/{id}', 'ItemController@update');
+Route::/*middleware('auth:api')->*/delete('item/{id}', 'ItemController@destroy');
+Route::get('item', 'ItemController@index');
+Route::get('item/{id}', 'ItemController@show');

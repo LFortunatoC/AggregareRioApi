@@ -10,6 +10,7 @@ class Constants {
     const DEFAULT_FLAGS_STORAGE_PATH = "storage/app/public/flags/";
     const DEFAULT_REST_PICTURE_STORAGE_PATH = "storage/app/public/rest_pics/";
     const DEFAULT_LOGO_STORAGE_PATH = "storage/app/public/rest_logos/";
+    const DEFAULT_ITEM_IMG_STORAGE_PATH = "storage/app/public/items_pics/";
 }
 
 ?>
