@@ -53,3 +53,10 @@ Route::/*middleware('auth:api')->*/patch('evaluation/{id}', 'EvaluationControlle
 Route::/*middleware('auth:api')->*/delete('evaluation/{id}', 'EvaluationController@destroy');
 Route::get('evaluation', 'EvaluationController@index');
 Route::get('evaluation/{id}', 'EvaluationController@show');
+
+//Routes for Order
+Route::/*middleware('auth:api')->*/post('order', 'OrderController@store');
+Route::/*middleware('auth:api')->*/patch('order/{id}', 'OrderController@update');
+Route::/*middleware('auth:api')->*/delete('order/{id}', 'OrderController@destroy');
+Route::get('order', 'OrderController@index');
+Route::get('order/{id}', 'OrderController@show');

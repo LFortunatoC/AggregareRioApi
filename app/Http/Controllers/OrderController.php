@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Order;
+use App\Http\Resources\Order as OrderResource;
 
 class OrderController extends Controller
 {
@@ -13,7 +15,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::paginate(15);
+        return OrderResource::collection($orders);
     }
 
     /**
@@ -34,7 +37,19 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'tableNumber' => 'required|Intenger',
+            'canceled'=> false,
+        ]);
+
+        $user =  User::findOrFail(auth()->user()->id);
+        
+        $newOrder = Order::create([
+            'tableNumber' => $request->tableNumber,
+            'canceled'=> false,
+        ]);
+
+        return response($newOrder, 201);
     }
 
     /**
@@ -45,7 +60,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::findOrFail($id);
+
+        return response($order,200);
     }
 
     /**
@@ -68,7 +85,22 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validationData = $request->validate([
+            
+            'tableNumber' => 'required|Intenger',
+        ]);
+
+       $user =  auth()->user()->id;
+       $order = Order::findOrFail($id);
+
+       $data = [
+        'tableNumber'=> $request->has('tableNumber')? $request->tableNumber: $order->tableNumber,
+           'canceled' =>$request->has('canceled')? $request->canceled: $order->canceled
+       ];
+
+        $order->update($data);
+
+       return response($order, 200);
     }
 
     /**
@@ -79,6 +111,11 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user =  auth()->user()->id;
+        $order = Order::findOrFail($id);
+
+        if($order->delete()) {
+            return response($order,200);
+        }
     }
 }
