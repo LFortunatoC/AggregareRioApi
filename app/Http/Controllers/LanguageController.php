@@ -53,8 +53,8 @@ class LanguageController extends Controller
         //$user =  User::findOrFail(auth()->user()->id);
         $flagPath = '';
 
-        if($request->hasFile('data')) {
-            $file = $request->file('data');
+        if($request->hasFile('flag')) {
+            $file = $request->file('flag');
 
             if(!$file->isValid()) {
                 abort( response()->json('Invalid_file_upload', 400) );
@@ -70,7 +70,7 @@ class LanguageController extends Controller
 
             $file->move($flagPath, $file->getClientOriginalName());
   
-            $flagPath = asset($flagPath.'/'.$name);
+            $flagPath = asset($flagPath.$name);
         }
 
         
@@ -92,7 +92,7 @@ class LanguageController extends Controller
      */
     public function show($id)
     {
-        $language = Langauge::findOrFail($id);
+        $language = Language::findOrFail($id);
 
         return response($language,200);
     }
@@ -121,7 +121,7 @@ class LanguageController extends Controller
             'language' => 'required|string',
         ]);
 
-       $user =  auth()->user()->id;
+       //$user =  auth()->user()->id;
        $language = Language::findOrFail($id);
 
        $data = [

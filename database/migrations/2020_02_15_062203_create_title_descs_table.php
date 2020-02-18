@@ -16,7 +16,7 @@ class CreateTitleDescsTable extends Migration
         Schema::create('titleDescs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('item_id');
-            $table->foreign('item_id')->references('id')->on('itens')->onDelete('cascade');
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->unsignedBigInteger('language_id');
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->string('title');
