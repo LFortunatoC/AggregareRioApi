@@ -46,6 +46,7 @@ Route::/*middleware('auth:api')->*/delete('menu/{id}', 'MenuController@destroy')
 Route::get('menu', 'MenuController@index');
 Route::get('menu/{id}', 'MenuController@show');
 
+<<<<<<< HEAD
 
 //Routes for Evaluation
 Route::/*middleware('auth:api')->*/post('evaluation', 'EvaluationController@store');
@@ -60,3 +61,11 @@ Route::/*middleware('auth:api')->*/patch('order/{id}', 'OrderController@update')
 Route::/*middleware('auth:api')->*/delete('order/{id}', 'OrderController@destroy');
 Route::get('order', 'OrderController@index');
 Route::get('order/{id}', 'OrderController@show');
+=======
+//Routes for Item
+Route::/*middleware('auth:api')->*/post('item', 'ItemController@store');
+Route::/*middleware('auth:api')->*/patch('item/{id}', 'ItemController@update');
+Route::/*middleware('auth:api')->*/delete('item/{id}', 'ItemController@destroy');
+Route::get('item', 'ItemController@index');
+Route::get('item/{id}', 'ItemController@show');
+>>>>>>> master
