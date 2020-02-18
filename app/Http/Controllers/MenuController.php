@@ -65,12 +65,11 @@ class MenuController extends Controller
 
             $picturePath = self::DEFAULT_REST_PICTURE_STORAGE_PATH;
 
-            if (File::exists($picturePath.'/'.$name)) {
-                abort( response()->json('File already uploaded', 422) );
+            if (!File::exists($picturePath.'/'.$name)) {
+                //abort( response()->json('File already uploaded', 422) );
+                $picture->move($picturePath, $picture->getClientOriginalName());
             }
 
-            $picture->move($picturePath, $picture->getClientOriginalName());
-  
             $picturePath = asset($picturePath.'/'.$name);
         }
 
@@ -85,11 +84,10 @@ class MenuController extends Controller
 
             $logoPath = self::DEFAULT_LOGO_STORAGE_PATH;
 
-            if (File::exists($logoPath.'/'.$name)) {
-                abort( response()->json('File already uploaded', 422) );
+            if (!File::exists($logoPath.'/'.$name)) {
+                //abort( response()->json('File already uploaded', 422) );
+                $logo->move($logoPath, $logo->getClientOriginalName());
             }
-
-            $logo->move($logoPath, $logo->getClientOriginalName());
   
             $logoPath = asset($logoPath.'/'.$name);
         }

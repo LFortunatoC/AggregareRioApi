@@ -16,7 +16,7 @@ class CreatePromotionsTable extends Migration
         Schema::create('promotions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('item_id');
-            $table->foreign('item_id')->references('id')->on('itens')->onDelete('cascade');
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->string('daysAvailable');
             $table->dateTime('startTime');         
             $table->dateTime('finishTime'); 
