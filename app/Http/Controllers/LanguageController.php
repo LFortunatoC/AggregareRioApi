@@ -92,7 +92,7 @@ class LanguageController extends Controller
      */
     public function show($id)
     {
-        $language = Langauge::findOrFail($id);
+        $language = Language::findOrFail($id);
 
         return response($language,200);
     }
@@ -121,7 +121,7 @@ class LanguageController extends Controller
             'language' => 'required|string',
         ]);
 
-       $user =  auth()->user()->id;
+       //$user =  auth()->user()->id;
        $language = Language::findOrFail($id);
 
        $data = [
