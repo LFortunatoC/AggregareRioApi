@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Title_desc;
-use App\Http\Resources\Title_desc as Title_descResource;
-
-class Title_descController extends Controller
+use App\TitleDesc;
+use App\Http\Resources\TitleDesc as TitleDescResource;
+use App\Language;
+use App\Item;
+use App\Constants;
+class TitleDescController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +17,8 @@ class Title_descController extends Controller
      */
     public function index()
     {
-        $title_desc = Title_desc::paginate(15);
-        return Title_descResource::collection($title_desc);
+        $titleDesc = TitleDesc::paginate(15);
+        return TitleDescResource::collection($titleDesc);
     }
 
     /**
@@ -38,19 +40,25 @@ class Title_descController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
+            'item_id' => 'required|integer',
+            'language_id'=> 'required|integer',
             'title' => 'required|string',
             'description' => 'required|string',
         ]);
 
-        $user =  User::findOrFail(auth()->user()->id);
+        //$user =  User::findOrFail(auth()->user()->id);
+        $item = Item::findOrFail($request->item_id);
+        $language = Language::findOrFail($request->language_id);
         
-        $newtitle_desc = Title_desc::create([
+        $newTitleDesc = TitleDesc::create([
+            'item_id'=> $request->item_id,
+            'language_id'=>$request->language_id,
             'title' => $request->title,
             'description' => $request->description,
             'active'=> true,
         ]);
 
-        return response($newTitle_desc, 201);
+        return response($newTitleDesc, 201);
     }
 
     /**
@@ -61,9 +69,9 @@ class Title_descController extends Controller
      */
     public function show($id)
     {
-        $title_desc = Title_desc::findOrFail($id);
+        $titleDesc = TitleDesc::findOrFail($id);
 
-        return response($title_desc,200);
+        return response($titleDesc,200);
     }
 
     /**
@@ -87,22 +95,26 @@ class Title_descController extends Controller
     public function update(Request $request, $id)
     {
         $validationData = $request->validate([
-            'tiltle' => 'required|string',
+            'item_id' => 'required/integer',
+            'language_id' => 'required/integer',
+            'title' => 'required|string',
             'description' => 'required|string',
         ]);
 
-       $user =  auth()->user()->id;
-       $title_desc = Title_desc::findOrFail($id);
+       //$user =  auth()->user()->id;
+       $titleDesc = TitleDesc::findOrFail($id);
 
        $data = [
-           'title' => $request->has('title')? $request->title: $title_desc->title,
-           'description'=> $request->has('description')? $request->description: $title_desc->description,
-           'active' =>$request->has('active')? $request->active: $title_desc->active
+           'item_id'=>$request->has('item_id')? $request->item_id: $titleDesc->item_id,
+           'language'=>$request->has('language_id')? $request->language_id: $titleDesc->language_id,
+           'title' => $request->has('title')? $request->title: $titleDesc->title,
+           'description'=> $request->has('description')? $request->description: $titleDesc->description,
+           'active' =>$request->has('active')? $request->active: $titleDesc->active
        ];
 
-        $title_desc->update($data);
+        $titleDesc->update($data);
 
-       return response($title_desc, 200);
+       return response($titleDesc, 200);
     }
 
     /**
@@ -113,11 +125,11 @@ class Title_descController extends Controller
      */
     public function destroy($id)
     {
-        $user =  auth()->user()->id;
-        $title_desc = Title_desc::findOrFail($id);
+        //$user =  auth()->user()->id;
+        $titleDesc = TitleDesc::findOrFail($id);
 
-        if($title_desc->delete()) {
-            return response($title_desc,200);
+        if($titleDesc->delete()) {
+            return response($titleDesc,200);
         }
     }
 }

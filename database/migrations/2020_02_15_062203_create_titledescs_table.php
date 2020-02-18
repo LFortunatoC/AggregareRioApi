@@ -33,6 +33,6 @@ class CreateTitleDescsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('title_descs');
+        Schema::dropIfExists('titledescs');
     }
 }
