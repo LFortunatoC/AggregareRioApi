@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use app\item;
-use app\itemOrder;
-use app\Order;
+use App\item;
+use App\ItemOrder;
+use App\Order;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Resources\ItemOrder as ItemOrderResource;

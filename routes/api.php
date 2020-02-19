@@ -47,8 +47,8 @@ Route::get('menu', 'MenuController@index');
 Route::get('menu/{id}', 'MenuController@show');
 
 //Routes for ItemOrderController
-Route::/*middleware('auth:api')->*/post('itemOrder', 'ItemOrderController@store');
-Route::/*middleware('auth:api')->*/patch('itemOrder/{id}', 'ItemOrderController@update');
-Route::/*middleware('auth:api')->*/delete('itemOrder/{id}', 'ItemOrderController@destroy');
-Route::get('itemOrder', 'ItemOrderController@index');
-Route::get('itemOrder/{id}', 'ItemOrderController@show');
+Route::/*middleware('auth:api')->*/post('itemorder', 'ItemOrderController@store');
+Route::/*middleware('auth:api')->*/patch('itemorder/{id}', 'ItemOrderController@update');
+Route::/*middleware('auth:api')->*/delete('itemorder/{id}', 'ItemOrderController@destroy');
+Route::get('itemorder', 'ItemOrderController@index');
+Route::get('itemorder/{id}', 'ItemOrderController@show');
