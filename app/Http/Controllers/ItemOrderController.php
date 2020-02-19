@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use app\item;
 use app\itemOrder;
 use app\Order;
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Resources\ItemOrder as ItemOrderResource;
 use App\Http\Resources\Item as ItemResource;
@@ -17,7 +18,7 @@ class ItemOrderController extends Controller
      */
     public function index()
     {
-        $itemOr = ItemOrder::paginate(10);
+        $itemOr = ItemOrder::paginate(15);
         return ItemOrderResource::collection($itemOr);
     }
 
@@ -40,15 +41,21 @@ class ItemOrderController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'id' => 'required|int',
-            'item_id' => 'required|int',
+            'description' => 'required|string',
             'qty' => 'required|int'
 
-        ])
+        ]);
+            
+       $user =  User::findOrFail(auth()->user()->id);
 
-        //$user =  User::findOrFail(auth()->user()->id);
 
-        //return response($newOrderItem, 10);
+        $newItemOrder = ItemOrder::create([
+            'description' => $request->description,
+            'qty' => 'required|int',
+            'active'=> true
+        ]);
+
+        return response($newOrderItem, 201);
     }
 
     /**
@@ -61,7 +68,7 @@ class ItemOrderController extends Controller
     {
         $itemOr = ItemOrder::findOrFail($id);
 
-        return response($itemOr,10);
+        return response($itemOr,200);
     }
 
     /**
@@ -89,7 +96,7 @@ class ItemOrderController extends Controller
         ]);
 
        $user =  auth()->user()->id;
-       $category = ItemOrder::findOrFail($id);
+       $itemOr = ItemOrder::findOrFail($id);
 
        $data = [
            'id'=> $request->has('id')? $request->id: $itemOr->id
@@ -98,7 +105,7 @@ class ItemOrderController extends Controller
 
         $category->update($data);
 
-       return response($itemOr, 10);
+       return response($itemOr, 200);
     }
 
     /**
@@ -114,7 +121,7 @@ class ItemOrderController extends Controller
         $itemOr = ItemOrder::findOrFail($id);
 
         if($itemOr->delete()) {
-            return response($itemOr,10);
+            return response($itemOr,200);
         }
     }
 }
