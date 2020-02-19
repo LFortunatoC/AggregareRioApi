@@ -121,7 +121,7 @@ class LanguageController extends Controller
             'language' => 'required|string',
         ]);
 
-       $user =  auth()->user()->id;
+       //$user =  auth()->user()->id;
        $language = Language::findOrFail($id);
 
        $data = [

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTitleDescsTable extends Migration
+class CreateItemsTitleDescsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTitleDescsTable extends Migration
      */
     public function up()
     {
-        Schema::create('titleDescs', function (Blueprint $table) {
+        Schema::create('item_title_descriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
@@ -21,7 +21,7 @@ class CreateTitleDescsTable extends Migration
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->string('title');
             $table->string('description');
-            $table->boolean('active');
+            $table->boolean('active');            
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateTitleDescsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('title_descs');
+        Schema::dropIfExists('item_title_descriptions');
     }
 }
