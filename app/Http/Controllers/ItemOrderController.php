@@ -18,8 +18,8 @@ class ItemOrderController extends Controller
      */
     public function index()
     {
-        $itemOrder = ItemOrder::paginate(15);
-        return ItemOrderResource::collection($itemOrder);
+        $itemOrders = ItemOrder::paginate(15);
+        return ItemOrderResource::collection($itemOrders);
     }
 
     /**
