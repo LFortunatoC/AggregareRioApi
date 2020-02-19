@@ -41,6 +41,7 @@ class OrderController extends Controller
         $data = $request->validate([
             'tableNumber' => 'required|intenger',
             'canceled'=> false,
+            'deliveredAt'=>'required|datatime',
         ]);
 
        // $user =  User::findOrFail(auth()->user()->id);
@@ -48,6 +49,7 @@ class OrderController extends Controller
         $newOrder = Order::create([
             'tableNumber' => $request->tableNumber,
             'canceled'=> false,
+            'deliveredAt'=>$request->deliveredAt,
         ]);
 
         return response($newOrder, 201);
@@ -89,6 +91,8 @@ class OrderController extends Controller
         $validationData = $request->validate([
             
             'tableNumber' => 'required|intenger',
+            'canceled'=> false,
+            'deliveredAt'=>'required|datatime',
         ]);
 
        //$user =  auth()->user()->id;
@@ -96,7 +100,8 @@ class OrderController extends Controller
 
        $data = [
         'tableNumber'=> $request->has('tableNumber')? $request->tableNumber: $order->tableNumber,
-           'canceled' =>$request->has('canceled')? $request->canceled: $order->canceled
+           'canceled' =>$request->has('canceled')? $request->canceled: $order->canceled,
+           'deliveredAt' =>$request->has('deliveredAt')? $request->deliveredAt: $order->deliveredAt,
        ];
 
         $order->update($data);
