@@ -18,8 +18,8 @@ class ItemOrderController extends Controller
      */
     public function index()
     {
-        $itemOr = ItemOrder::paginate(15);
-        return ItemOrderResource::collection($itemOr);
+        $itemOrder = ItemOrder::paginate(15);
+        return ItemOrderResource::collection($itemOrder);
     }
 
     /**
@@ -55,7 +55,7 @@ class ItemOrderController extends Controller
             'active'=> true
         ]);
 
-        return response($newOrderItem, 201);
+        return response($newItemOrder, 201);
     }
 
     /**
@@ -66,9 +66,9 @@ class ItemOrderController extends Controller
      */
     public function show($id)
     {
-        $itemOr = ItemOrder::findOrFail($id);
+        $itemOrder = ItemOrder::findOrFail($id);
 
-        return response($itemOr,200);
+        return response($itemOrder,200);
     }
 
     /**
@@ -96,16 +96,16 @@ class ItemOrderController extends Controller
         ]);
 
        $user =  auth()->user()->id;
-       $itemOr = ItemOrder::findOrFail($id);
+       $itemOrder = ItemOrder::findOrFail($id);
 
        $data = [
            'id'=> $request->has('id')? $request->id: $itemOr->id
            
        ];
 
-        $category->update($data);
+        $itemOrder->update($data);
 
-       return response($itemOr, 200);
+       return response($itemOrder, 200);
     }
 
     /**
@@ -118,10 +118,10 @@ class ItemOrderController extends Controller
     {
         
         $user =  auth()->user()->id;
-        $itemOr = ItemOrder::findOrFail($id);
+        $itemOrder = ItemOrder::findOrFail($id);
 
-        if($itemOr->delete()) {
-            return response($itemOr,200);
+        if($itemOrder->delete()) {
+            return response($itemOrder,200);
         }
     }
 }
