@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Http\Resources\Order as OrderResource;
+use Illuminate\Support\Arr;
 
 class OrderController extends Controller
 {
@@ -38,11 +39,11 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'tableNumber' => 'required|Intenger',
+            'tableNumber' => 'required|intenger',
             'canceled'=> false,
         ]);
 
-        $user =  User::findOrFail(auth()->user()->id);
+       // $user =  User::findOrFail(auth()->user()->id);
         
         $newOrder = Order::create([
             'tableNumber' => $request->tableNumber,
@@ -87,10 +88,10 @@ class OrderController extends Controller
     {
         $validationData = $request->validate([
             
-            'tableNumber' => 'required|Intenger',
+            'tableNumber' => 'required|intenger',
         ]);
 
-       $user =  auth()->user()->id;
+       //$user =  auth()->user()->id;
        $order = Order::findOrFail($id);
 
        $data = [
@@ -111,7 +112,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        $user =  auth()->user()->id;
+       // $user =  auth()->user()->id;
         $order = Order::findOrFail($id);
 
         if($order->delete()) {
