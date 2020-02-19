@@ -53,9 +53,23 @@ Route::/*middleware('auth:api')->*/delete('item/{id}', 'ItemController@destroy')
 Route::get('item', 'ItemController@index');
 Route::get('item/{id}', 'ItemController@show');
 
-//Routes for TitleDesc
+//Routes for Item Title Desc
 Route::/*middleware('auth:api')->*/post('itemtitledesc', 'ItemTitleDescriptionController@store');
 Route::/*middleware('auth:api')->*/patch('itemtitledesc/{id}', 'ItemTitleDescriptionController@update');
 Route::/*middleware('auth:api')->*/delete('itemtitledesc/{id}', 'ItemTitleDescriptionController@destroy');
 Route::get('itemtitledesc', 'ItemTitleDescriptionController@index');
 Route::get('itemtitledesc/{id}', 'ItemTitleDescriptionController@show');
+
+//Routes for Menu Title Desc
+Route::/*middleware('auth:api')->*/post('menutitledesc', 'MenuTitleDescController@store');
+Route::/*middleware('auth:api')->*/patch('menutitledesc/{id}', 'MenuTitleDescController@update');
+Route::/*middleware('auth:api')->*/delete('menutitledesc/{id}', 'MenuTitleDescController@destroy');
+Route::get('menutitledesc', 'MenuTitleDescController@index');
+Route::get('menutitledesc/{id}', 'MenuTitleDescController@show');
+
+//Routes for Question Pool
+Route::/*middleware('auth:api')->*/post('questionpool', 'QuestionPoolController@store');
+Route::/*middleware('auth:api')->*/patch('questionpool/{id}', 'QuestionPoolController@update');
+Route::/*middleware('auth:api')->*/delete('questionpool/{id}', 'QuestionPoolController@destroy');
+Route::get('questionpool', 'QuestionPoolController@index');
+Route::get('questionpool/{id}', 'QuestionPoolController@show');

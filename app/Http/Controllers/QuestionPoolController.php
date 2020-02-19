@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class QuestionpoolController extends Controller
+class QuestionPoolController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,8 @@ class QuestionpoolController extends Controller
      */
     public function index()
     {
-        //
+        $questionPool = QuestionPool::paginate(15);
+        return QuestionPoolResource::collection($questionPool);
     }
 
     /**
@@ -34,7 +35,19 @@ class QuestionpoolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'question' => 'required|string',
+            'language_id' => 'required|integer'
+        ]);
+
+        $user =  User::findOrFail(auth()->user()->id);
+        
+        $newQuestionPool = QuestionPool::create([
+            'question' => $request->question,
+            'language_id' => $request->language_id
+        ]);
+    
+        return response($newQuestionPool, 201);
     }
 
     /**
@@ -45,7 +58,9 @@ class QuestionpoolController extends Controller
      */
     public function show($id)
     {
-        //
+        $newQuestionPool = QuestionPool::findOrFail($id);
+
+        return response($newQuestionPool,200);
     }
 
     /**
@@ -68,7 +83,22 @@ class QuestionpoolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validationData = $request->validate([
+            'question' => 'required|string',
+            'language_id' => 'required|integer'
+        ]);
+
+       $user =  auth()->user()->id;
+       $questionPool = QuestionPool::findOrFail($id);
+
+       $data = [
+        'question' => $request->has('question')? $request->question: $questionPool->question,
+        'language_id' => $request->has('language_id')? $request->language_id: $questionPool->language_id
+       ];
+
+        $questionPool->update($data);
+
+       return response($questionPool, 200);
     }
 
     /**
@@ -79,6 +109,12 @@ class QuestionpoolController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user =  auth()->user()->id;
+        $questionPool = QuestionPool::findOrFail($id);
+
+        if($questionPool->delete()) 
+        {
+            return response($questionPool,200);
+        }   
     }
 }
