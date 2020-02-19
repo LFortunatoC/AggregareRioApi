@@ -39,9 +39,9 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'tableNumber' => 'required|intenger',
-            'canceled'=> false,
-            'deliveredAt'=>'required|datatime',
+            'tableNumber' => 'required|integer',
+          
+            'deliveredAt'=>'required|date',
         ]);
 
        // $user =  User::findOrFail(auth()->user()->id);
@@ -88,12 +88,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validationData = $request->validate([
-            
-            'tableNumber' => 'required|intenger',
-            'canceled'=> false,
-            'deliveredAt'=>'required|datatime',
-        ]);
+        
 
        //$user =  auth()->user()->id;
        $order = Order::findOrFail($id);

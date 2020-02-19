@@ -100,14 +100,7 @@ class EvaluationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validationData = $request->validate([
-            'order_id'=>'required|integer',
-            'questionpool_id'=>'required|integer',
-            // 'client_id'=>'required|integer',
-            'evaluationValue'=>'required|integer',
-            'comment' => 'required|string',
-        ]);
-
+        
       // $user =  auth()->user()->id;
        $evaluation = Evaluation::findOrFail($id);
 
@@ -115,7 +108,7 @@ class EvaluationController extends Controller
         'order_id' =>  $request->has('order_id')? $request->order_id : $evaluation->order_id,
         'questionpool_id' =>  $request->has('questionpool_id')? $request->questionpool_id : $evaluation->questionpool_id,
         //'client_id' =>  $request->has('client_id')? $request->client_id : $evaluation->client_id,
-        //'client_id' =>  22,
+        'client_id' =>  22,
             'evaluationValue'=> $request->has('evaluationValue')? $request->evaluationValue: $evaluation->evaluationValue,
            'comment'=> $request->has('comment')? $request->comment: $evaluation->comment,
           
