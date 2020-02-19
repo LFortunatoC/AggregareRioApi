@@ -54,8 +54,8 @@ Route::get('item', 'ItemController@index');
 Route::get('item/{id}', 'ItemController@show');
 
 //Routes for TitleDesc
-Route::/*middleware('auth:api')->*/post('titleDesc', 'TitleDescController@store');
-Route::/*middleware('auth:api')->*/patch('titleDesc/{id}', 'TitleDescController@update');
-Route::/*middleware('auth:api')->*/delete('titleDesc/{id}', 'TitleDescController@destroy');
-Route::get('titleDesc', 'TitleDescController@index');
-Route::get('titleDesc/{id}', 'TitleDescController@show');
+Route::/*middleware('auth:api')->*/post('itemtitledesc', 'ItemTitleDescriptionController@store');
+Route::/*middleware('auth:api')->*/patch('itemtitledesc/{id}', 'ItemTitleDescriptionController@update');
+Route::/*middleware('auth:api')->*/delete('itemtitledesc/{id}', 'ItemTitleDescriptionController@destroy');
+Route::get('itemtitledesc', 'ItemTitleDescriptionController@index');
+Route::get('itemtitledesc/{id}', 'ItemTitleDescriptionController@show');

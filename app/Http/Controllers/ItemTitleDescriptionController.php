@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\TitleDesc;
-use App\Http\Resources\TitleDesc as TitleDescResource;
+use App\ItemTitleDescription;
+use App\Http\Resources\ItemTitleDescription as TitleDescResource;
 use App\Language;
 use App\Item;
 use App\Constants;
 
-class TitleDescController extends Controller
+class ItemTitleDescriptionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class TitleDescController extends Controller
      */
     public function index()
     {
-        $titleDesc = TitleDesc::paginate(15);
+        $titleDesc = ItemTitleDescription::paginate(15);
         return TitleDescResource::collection($titleDesc);
     }
 
@@ -51,7 +51,7 @@ class TitleDescController extends Controller
         $item = Item::findOrFail($request->item_id);
         $language = Language::findOrFail($request->language_id);
         
-        $newTitleDesc = TitleDesc::create([
+        $newTitleDesc = ItemTitleDescription::create([
             'item_id'=> $request->item_id,
             'language_id'=>$request->language_id,
             'title' => $request->title,
@@ -70,7 +70,7 @@ class TitleDescController extends Controller
      */
     public function show($id)
     {
-        $titleDesc = TitleDesc::findOrFail($id);
+        $titleDesc = ItemTitleDescription::findOrFail($id);
 
         return response($titleDesc,200);
     }
@@ -96,14 +96,14 @@ class TitleDescController extends Controller
     public function update(Request $request, $id)
     {
         $validationData = $request->validate([
-            'item_id' => 'required/integer',
-            'language_id' => 'required/integer',
+            'item_id' => 'required|integer',
+            'language_id' => 'required|integer',
             'title' => 'required|string',
             'description' => 'required|string',
         ]);
 
        //$user =  auth()->user()->id;
-       $titleDesc = TitleDesc::findOrFail($id);
+       $titleDesc = ItemTitleDescription::findOrFail($id);
 
        $data = [
            'item_id'=>$request->has('item_id')? $request->item_id: $titleDesc->item_id,
@@ -127,7 +127,7 @@ class TitleDescController extends Controller
     public function destroy($id)
     {
         //$user =  auth()->user()->id;
-        $titleDesc = TitleDesc::findOrFail($id);
+        $titleDesc = ItemTitleDescription::findOrFail($id);
 
         if($titleDesc->delete()) {
             return response($titleDesc,200);
