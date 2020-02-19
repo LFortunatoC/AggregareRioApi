@@ -18,9 +18,9 @@ class CreatePromotionsTable extends Migration
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->string('daysAvailable');
-            $table->dateTime('startTime');         
-            $table->dateTime('finishTime'); 
-            $table->float('promoValuePercent');
+            $table->dateTime('startTime')->nullable($value=true);         
+            $table->dateTime('finishTime')->nullable($value=true); 
+            $table->float('promoValuePercent')->nullable($value=true);
             $table->float('value');
             $table->boolean('active');
             $table->timestamps();
