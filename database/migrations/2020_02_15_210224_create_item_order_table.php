@@ -13,12 +13,12 @@ class CreateItemOrderTable extends Migration
      */
     public function up()
     {
-        Schema::create('ItemOrders', function (Blueprint $table) {
+        Schema::create('itemorders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->unsignedBigInteger('item_id');
-            $table->foreign('item_id')->references('id')->on('itens')->onDelete('cascade');
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->Integer('qty');
             $table->Float('currPrice');
             $table->boolean('canceled');
@@ -33,6 +33,6 @@ class CreateItemOrderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ItemOrders');
+        Schema::dropIfExists('itemorders');
     }
 }
