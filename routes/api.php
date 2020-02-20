@@ -60,7 +60,7 @@ Route::/*middleware('auth:api')->*/delete('promotion/{id}', 'PromotionController
 Route::get('promotion', 'PromotionController@index');
 Route::get('promotion/{id}', 'PromotionController@show');
 
-//Routes for TitleDesc
+//Routes for ItemTitleDesc
 Route::/*middleware('auth:api')->*/post('itemtitledesc', 'ItemTitleDescriptionController@store');
 Route::/*middleware('auth:api')->*/patch('itemtitledesc/{id}', 'ItemTitleDescriptionController@update');
 Route::/*middleware('auth:api')->*/delete('itemtitledesc/{id}', 'ItemTitleDescriptionController@destroy');

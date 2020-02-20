@@ -17,12 +17,12 @@ class CreatePromotionsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
-            $table->string('daysAvailable');
-            $table->dateTime('startTime')->nullable($value=true);         
-            $table->dateTime('finishTime')->nullable($value=true); 
+            $table->string('daysAvailable')->nullable($value=true);         
+            $table->string('startTime')->nullable($value=true);         
+            $table->string('finishTime')->nullable($value=true); 
             $table->float('promoValuePercent')->nullable($value=true);
-            $table->float('value');
-            $table->boolean('active');
+            $table->float('value')->nullable($value=true);         
+            $table->boolean('active')->nullable($value=true);         
             $table->timestamps();
         });
     }

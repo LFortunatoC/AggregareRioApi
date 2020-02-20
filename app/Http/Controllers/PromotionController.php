@@ -51,7 +51,10 @@ class PromotionController extends Controller
             'item_id'=> $request->item_id,
             'daysAvailable' => $request->daysAvailable,
             'value' => $request->value,
-            'active'=> true,
+            'startTime'=> $request->has('startTime')? $request->startTime :" ",
+            'finishTime' => $request->has('finishTime')? $request->finishTime : " ",
+            'promoValuePercent' => $request->has('promoValuePercent')? $request->promoValuePercent : " ",
+            'active'=> true
         ]);
 
         return response($newPromotion, 201);
@@ -90,12 +93,6 @@ class PromotionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validationData = $request->validate([
-            'item_id' => 'required|integer',
-            'daysAvailable' => 'required|string',
-            'value' => 'required|numeric',
-        ]);
-
        //$user =  auth()->user()->id;
        $promotion = Promotion::findOrFail($id);
 
@@ -103,6 +100,9 @@ class PromotionController extends Controller
            'item_id'=>$request->has('item_id')? $request->item_id: $promotion->item_id,
            'daysAvailable' => $request->has('daysAvailable')? $request->daysAvailable: $promotion->daysAvailable,
            'value' => $request->has('value')? $request->value: $promotion->value,
+           'startTime'=> $request->has('startTime')? $request->startTime :  $promotion->startTime,
+           'finishTime' => $request->has('finishTime')? $request->finishTime :  $promotion->finishTime,
+           'promoValuePercent' => $request->has('promoValuePercent')? $request->promoValuePercent :  $promotion->promoValuePercent,
            'active' =>$request->has('active')? $request->active: $promotion->active
        ];
 
