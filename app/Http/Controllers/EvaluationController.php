@@ -45,9 +45,7 @@ class EvaluationController extends Controller
             'order_id'=>'required|integer',
             'questionpool_id'=>'required|integer',
              // 'client_id'=>'required|integer',
-            'evaluationValue'=>'required|integer',
-            'comment' => 'required|string',
-            
+            'evaluationValue'=>'required|integer',            
         ]);
         
 
@@ -57,7 +55,6 @@ class EvaluationController extends Controller
             'order_id' => $request->order_id,
             'questionpool_id' => $request->questionpool_id,
             'client_id' => 22,
-             //false value-Hardcode-Stump
             //'client_id' => $request->client_id,
              'evaluationValue' => $request->evaluationValue,
             'comment' => $request->comment,
