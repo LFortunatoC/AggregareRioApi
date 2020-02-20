@@ -8,7 +8,7 @@ use App\Http\Resources\Evaluation as EvaluationResource;
 //use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 use App\Order;
-use App\QuestionPoll;
+use App\QuestionPool;
 
 class EvaluationController extends Controller
 {   
