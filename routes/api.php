@@ -46,6 +46,21 @@ Route::/*middleware('auth:api')->*/delete('menu/{id}', 'MenuController@destroy')
 Route::get('menu', 'MenuController@index');
 Route::get('menu/{id}', 'MenuController@show');
 
+
+//Routes for Evaluation
+Route::/*middleware('auth:api')->*/post('evaluation', 'EvaluationController@store');
+Route::/*middleware('auth:api')->*/patch('evaluation/{id}', 'EvaluationController@update');
+Route::/*middleware('auth:api')->*/delete('evaluation/{id}', 'EvaluationController@destroy');
+Route::get('evaluation', 'EvaluationController@index');
+Route::get('evaluation/{id}', 'EvaluationController@show');
+
+//Routes for Order
+Route::/*middleware('auth:api')->*/post('order', 'OrderController@store');
+Route::/*middleware('auth:api')->*/patch('order/{id}', 'OrderController@update');
+Route::/*middleware('auth:api')->*/delete('order/{id}', 'OrderController@destroy');
+Route::get('order', 'OrderController@index');
+Route::get('order/{id}', 'OrderController@show');
+
 //Routes for Item
 Route::/*middleware('auth:api')->*/post('item', 'ItemController@store');
 Route::/*middleware('auth:api')->*/patch('item/{id}', 'ItemController@update');
@@ -66,4 +81,3 @@ Route::/*middleware('auth:api')->*/patch('itemtitledesc/{id}', 'ItemTitleDescrip
 Route::/*middleware('auth:api')->*/delete('itemtitledesc/{id}', 'ItemTitleDescriptionController@destroy');
 Route::get('itemtitledesc', 'ItemTitleDescriptionController@index');
 Route::get('itemtitledesc/{id}', 'ItemTitleDescriptionController@show');
-
