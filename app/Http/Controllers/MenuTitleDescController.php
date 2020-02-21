@@ -126,7 +126,7 @@ class MenuTitleDescController extends Controller
      */
     public function destroy($id)
     {
-    $user =  auth()->user()->id;
+    //$user =  auth()->user()->id;
     $menuTitleDesc = MenuTitleDesc::findOrFail($id);
 
         if($menuTitleDesc->delete()) 
