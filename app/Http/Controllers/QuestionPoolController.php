@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\QuestionPool;
+use App\Http\Resources\QuestionPool as QuestionPoolResource;
 
 class QuestionPoolController extends Controller
 {
@@ -40,11 +42,12 @@ class QuestionPoolController extends Controller
             'language_id' => 'required|integer'
         ]);
 
-        $user =  User::findOrFail(auth()->user()->id);
+       // $user =  User::findOrFail(auth()->user()->id);
         
         $newQuestionPool = QuestionPool::create([
             'question' => $request->question,
-            'language_id' => $request->language_id
+            'language_id' => $request->language_id,
+            'active' => true
         ]);
     
         return response($newQuestionPool, 201);
@@ -88,7 +91,7 @@ class QuestionPoolController extends Controller
             'language_id' => 'required|integer'
         ]);
 
-       $user =  auth()->user()->id;
+      // $user =  auth()->user()->id;
        $questionPool = QuestionPool::findOrFail($id);
 
        $data = [
@@ -109,7 +112,7 @@ class QuestionPoolController extends Controller
      */
     public function destroy($id)
     {
-        $user =  auth()->user()->id;
+        //$user =  auth()->user()->id;
         $questionPool = QuestionPool::findOrFail($id);
 
         if($questionPool->delete()) 
