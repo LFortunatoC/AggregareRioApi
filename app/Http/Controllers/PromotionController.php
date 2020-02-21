@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Promotion;
+use App\Item;
+use App\Http\Resources\Promotion as PromotionResource;
 class PromotionController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class PromotionController extends Controller
      */
     public function index()
     {
-        //
+        $promotion = Promotion::paginate(15);
+        return PromotionResource::collection($promotion);
     }
 
     /**
@@ -34,7 +37,27 @@ class PromotionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'item_id' => 'required|integer',
+            'daysAvailable' => 'required|string',
+            'value' => 'required|numeric',
+        ]);
+
+        //$user =  User::findOrFail(auth()->user()->id);
+        $item = Item::findOrFail($request->item_id);
+      
+
+        $newPromotion = Promotion::create([
+            'item_id'=> $request->item_id,
+            'daysAvailable' => $request->daysAvailable,
+            'value' => $request->value,
+            'startTime'=> $request->has('startTime')? $request->startTime :" ",
+            'finishTime' => $request->has('finishTime')? $request->finishTime : " ",
+            'promoValuePercent' => $request->has('promoValuePercent')? $request->promoValuePercent : " ",
+            'active'=> true
+        ]);
+
+        return response($newPromotion, 201);
     }
 
     /**
@@ -45,7 +68,9 @@ class PromotionController extends Controller
      */
     public function show($id)
     {
-        //
+        $promotion = Promotion::findOrFail($id);
+
+        return response($promotion,200);
     }
 
     /**
@@ -68,7 +93,22 @@ class PromotionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       //$user =  auth()->user()->id;
+       $promotion = Promotion::findOrFail($id);
+
+       $data = [
+           'item_id'=>$request->has('item_id')? $request->item_id: $promotion->item_id,
+           'daysAvailable' => $request->has('daysAvailable')? $request->daysAvailable: $promotion->daysAvailable,
+           'value' => $request->has('value')? $request->value: $promotion->value,
+           'startTime'=> $request->has('startTime')? $request->startTime :  $promotion->startTime,
+           'finishTime' => $request->has('finishTime')? $request->finishTime :  $promotion->finishTime,
+           'promoValuePercent' => $request->has('promoValuePercent')? $request->promoValuePercent :  $promotion->promoValuePercent,
+           'active' =>$request->has('active')? $request->active: $promotion->active
+       ];
+
+        $promotion->update($data);
+
+       return response($promotion, 200);
     }
 
     /**
@@ -79,6 +119,10 @@ class PromotionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $promotion = Promotion::findOrFail($id);
+
+        if($promotion->delete()) {
+            return response($promotion,200);
+        }
     }
 }
