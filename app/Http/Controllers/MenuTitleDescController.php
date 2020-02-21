@@ -45,7 +45,7 @@ class MenuTitleDescController extends Controller
             'language_id' => 'required|integer'
         ]);
 
-        $user =  User::findOrFail(auth()->user()->id);
+        //$user =  User::findOrFail(auth()->user()->id);
         
         $newMenuTitleDesc = MenuTitleDesc::create([
             'menu_id' => $request->menu_id,
