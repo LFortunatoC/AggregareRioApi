@@ -52,8 +52,8 @@ class MenuTitleDescController extends Controller
             'language_id' => $request->language_id,
             'title' => $request->title,
             'description' => $request->description,
-            'altText1' => $request->alterText1,
-            'altText2' => $request->alterText2,
+            'altText1' => $request->altText1,
+            'altText2' => $request->altText2,
             'active'=> true,
         ]);
 

@@ -68,9 +68,7 @@ Route::/*middleware('auth:api')->*/delete('item/{id}', 'ItemController@destroy')
 Route::get('item', 'ItemController@index');
 Route::get('item/{id}', 'ItemController@show');
 
-<<<<<<< HEAD
 //Routes for Item Title Desc
-=======
 //Routes for Promotion
 Route::/*middleware('auth:api')->*/post('promotion', 'PromotionController@store');
 Route::/*middleware('auth:api')->*/patch('promotion/{id}', 'PromotionController@update');
@@ -79,13 +77,11 @@ Route::get('promotion', 'PromotionController@index');
 Route::get('promotion/{id}', 'PromotionController@show');
 
 //Routes for ItemTitleDesc
->>>>>>> master
 Route::/*middleware('auth:api')->*/post('itemtitledesc', 'ItemTitleDescriptionController@store');
 Route::/*middleware('auth:api')->*/patch('itemtitledesc/{id}', 'ItemTitleDescriptionController@update');
 Route::/*middleware('auth:api')->*/delete('itemtitledesc/{id}', 'ItemTitleDescriptionController@destroy');
 Route::get('itemtitledesc', 'ItemTitleDescriptionController@index');
 Route::get('itemtitledesc/{id}', 'ItemTitleDescriptionController@show');
-<<<<<<< HEAD
 
 //Routes for Menu Title Desc
 Route::/*middleware('auth:api')->*/post('menutitledesc', 'MenuTitleDescController@store');
@@ -100,5 +96,3 @@ Route::/*middleware('auth:api')->*/patch('questionpool/{id}', 'QuestionPoolContr
 Route::/*middleware('auth:api')->*/delete('questionpool/{id}', 'QuestionPoolController@destroy');
 Route::get('questionpool', 'QuestionPoolController@index');
 Route::get('questionpool/{id}', 'QuestionPoolController@show');
-=======
->>>>>>> master
