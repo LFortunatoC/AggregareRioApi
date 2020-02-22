@@ -13,7 +13,7 @@ class CreateMenuTitleDescsTable extends Migration
      */
     public function up()
     {
-        Schema::create('menuTitleDescs', function (Blueprint $table) {
+        Schema::create('menu_Title_Descs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('menu_id');
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
@@ -35,6 +35,6 @@ class CreateMenuTitleDescsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menuTitleDescs');
+        Schema::dropIfExists('menu_Title_Descs');
     }
 }

@@ -13,7 +13,7 @@ class CreateQuestionPoolsTable extends Migration
      */
     public function up()
     {
-        Schema::create('questionPools', function (Blueprint $table) {
+        Schema::create('question_pools', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('language_id');
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
@@ -30,6 +30,6 @@ class CreateQuestionPoolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questionPools');
+        Schema::dropIfExists('question_pools');
     }
 }
