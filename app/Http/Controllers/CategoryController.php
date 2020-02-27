@@ -115,4 +115,12 @@ class CategoryController extends Controller
             return response($category,200);
         }
     }
+
+    public function search(Request $request, $language_id)
+    {
+
+        $category = Category::where('language_id', '=', $language_id)->get();
+        
+        return response($category,200);
+    }
 }

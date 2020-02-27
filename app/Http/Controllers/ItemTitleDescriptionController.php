@@ -133,4 +133,13 @@ class ItemTitleDescriptionController extends Controller
             return response($titleDesc,200);
         }
     }
+
+    public function search(Request $request, $language_id)
+    {
+
+        $titleDesc = ItemTitleDescription::where('language_id', '=', $language_id)->get();
+        
+        return response($titleDesc,200);
+    }
+    
 }
