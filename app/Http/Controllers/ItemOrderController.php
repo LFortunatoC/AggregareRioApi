@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\ItemOrder;
+use App\Item;
 use Illuminate\Http\Request;
+use App\Http\Resources\ItemOrder as ItemOrderResource;
 
 class ItemOrderController extends Controller
 {
@@ -13,7 +15,8 @@ class ItemOrderController extends Controller
      */
     public function index()
     {
-        //
+        $itemOrder = ItemOrder::paginate(15);
+        return ItemOrderResource::collection($itemOrder);
     }
 
     /**
@@ -34,7 +37,27 @@ class ItemOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+
+            'order_Id' =>'required|integer',
+            'Item_Id' =>'required|integer',
+            'qty' => 'required|integer',
+            'currPrice' => 'required|numeric',
+
+        ]);
+        $user =  User::findOrFail(auth()->user()->id);
+        $item = Item::findOrFail($request->item_id);
+
+        $newItemOrder = ItemOrder::create([
+            'order_Id' =>$request->order_Id,
+            'Item_Id' =>$request->Item_Id,
+            'qty' =>$request->qty,
+            'currPrice' => $request->currPrice,
+            'canceled'=>false,
+        ]);
+
+        return response($newItemOrder,201);
+
     }
 
     /**
@@ -45,7 +68,8 @@ class ItemOrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $itemOrder = ItemOrder::findOrFail($id);
+        return response($itemOrder,200);
     }
 
     /**
@@ -68,7 +92,30 @@ class ItemOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validationData = $request->validate([
+
+            'order_Id' =>'required|integer',
+            'Item_Id' =>'required|integer',
+            'qty' => 'required|integer',
+            'currPrice' => 'required|numeric',
+
+        ]);
+        $itemOrder = ItemOrder::findOrFail($id);
+
+        $data = [
+            'order_Id' =>$request->has('order_Id')?$request->order_Id:$itemOrder->order_Id,
+            'Item_Id' =>$request->has('Item_Id')?$request->Item_Id:$itemOrder->Item_Id,
+            'qty' =>$request->has('qty')?$request->qty:$itemOrder->qty,
+            'currPrice' => $request->has('currPrice')?$request->currPrice:$itemOrder->currPrice,
+            'canceled'=>$request->has('canceled')?$request->canceled:$itemOrder->canceled
+            
+        ];
+ 
+         $itemOrder->update($data);
+ 
+        return response($itemOrder, 200);
+
+
     }
 
     /**
@@ -79,6 +126,11 @@ class ItemOrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user =  auth()->user()->id;
+        $itemOrder = ItemOrder::findOrFail($id);
+
+        if($itemOrder->delete()) {
+            return response($itemOrder,200);
+        }
     }
 }
