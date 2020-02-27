@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Http\Resources\Order as OrderResource;
 use Illuminate\Support\Arr;
+use App\ItemOrder;
 
 class OrderController extends Controller
 {
@@ -40,19 +41,44 @@ class OrderController extends Controller
     {
         $data = $request->validate([
             'tableNumber' => 'required|integer',
-          
             'deliveredAt'=>'required|date',
+            '*.itemList.*.item_id' => 'required|exists:itemList,item_id',
+            '*.itemList.*.qty' => 'required|exists:itemList,qty',
+            '*.itemList.*.currPrice' => 'required|exists:itemList,currPrice',
         ]);
 
-       // $user =  User::findOrFail(auth()->user()->id);
+        // $user =  User::findOrFail(auth()->user()->id);
         
         $newOrder = Order::create([
             'tableNumber' => $request->tableNumber,
             'canceled'=> false,
             'deliveredAt'=>$request->deliveredAt,
+            
         ]);
 
-        return response($newOrder, 201);
+        $itemList = $request->itemList;
+        $newOrderItemList = array();
+
+        foreach($itemList as $item) {
+            $newItemOrder = ItemOrder::Create([
+                'order_id' => $newOrder->id,
+                'item_id' => $item['item_id'],
+                'qty' => $item['qty'],
+                'currPrice' => $item['currPrice'],
+                'canceled'=>false,
+                'active'=> true
+
+            ]);
+
+            array_push($newOrderItemList, $newItemOrder);
+
+            $data = [
+                'order' => $newOrder,
+                'items' => $newOrderItemList
+            ];
+        }
+
+        return response($data, 201);
     }
 
     /**
@@ -63,7 +89,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::findOrFail($id);
+        $order = Order::with('items')->findOrFail($id);
 
         return response($order,200);
     }
@@ -95,13 +121,41 @@ class OrderController extends Controller
 
        $data = [
         'tableNumber'=> $request->has('tableNumber')? $request->tableNumber: $order->tableNumber,
-           'canceled' =>$request->has('canceled')? $request->canceled: $order->canceled,
-           'deliveredAt' =>$request->has('deliveredAt')? $request->deliveredAt: $order->deliveredAt,
+        'canceled' =>$request->has('canceled')? $request->canceled: $order->canceled,
+        'deliveredAt' =>$request->has('deliveredAt')? $request->deliveredAt: $order->deliveredAt,
        ];
 
         $order->update($data);
 
-       return response($order, 200);
+        if ($request->has('itemList'))
+        {
+            $itemList = $request->itemList;
+            $newOrderItemList = array();
+    
+            foreach($itemList as $item) {
+                $newItemOrder = ItemOrder::findOrFail($item['itemOrder_id']);
+                
+                $data = [
+                    'qty' => Arr::exists($item, 'qty')? $item['qty'] : $newItemOrder->qty,
+                    'currPrice' => Arr::exists($item, 'currPrice')? $item['currPrice']: $newItemOrder->currPrice ,
+                    'canceled'=>  Arr::exists($item, 'canceled')? $item['canceled'] : $newItemOrder->canceled,
+                    'active'=>  Arr::exists($item, 'active') ? $item['active'] : $newItemOrder->active,
+                ];
+
+                $newItemOrder->update($data);
+
+                array_push($newOrderItemList, $newItemOrder);
+            }
+
+        }
+
+        
+        $data = [
+            'order' => $order,
+            'items' => $newOrderItemList
+        ];
+
+       return response($data, 200);
     }
 
     /**

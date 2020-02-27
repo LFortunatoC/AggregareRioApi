@@ -13,11 +13,11 @@ class CreateSubcategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('subcategories', function (Blueprint $table) {
+        Schema::create('sub_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('language_id');
-            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
-            $table->string('description');
+            // $table->unsignedBigInteger('language_id');
+            // $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            // $table->string('description');
             $table->boolean('active')->nullable($value=true);
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateSubcategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subcategory');
+        Schema::dropIfExists('sub_categories');
     }
 }

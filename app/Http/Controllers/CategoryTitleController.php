@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
-use App\Http\Resources\Category as CategoryResource;
-class CategoryController extends Controller
+use App\CategoryTitle;
+use App\Http\Resources\CategoryTitle as CategoryTitleResource;
+
+class CategoryTitleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(15);
-        return CategoryResource::collection($categories);
+        $categorieTitles = CategoryTitle::paginate(15);
+        return CategoryTitleResource::collection($categorieTitles);
     }
 
     /**
@@ -37,17 +38,21 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
+            'category_id'=> 'required|integer',
             'description' => 'required|string',
+            'language_id'=> 'required|integer'
         ]);
 
         //$user =  User::findOrFail(auth()->user()->id);
         
-        $newCategory = Category::create([
+        $newCategoryTitle = CategoryTitle::create([
+            'category_id'=> $request->category_id,
             'description' => $request->description,
-            'active'=> true,
+            'language_id'=> $request->language_id,
+            'active'=> true
         ]);
 
-        return response($newCategory, 201);
+        return response($newCategoryTitle, 201);
     }
 
     /**
@@ -58,9 +63,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
-
-        return response($category,200);
+        $categoryTitle = CategoryTitle::findOrFail($id);
+        return response($categoryTitle,200);
     }
 
     /**
@@ -88,16 +92,18 @@ class CategoryController extends Controller
         ]);
 
        //$user =  auth()->user()->id;
-       $category = Category::findOrFail($id);
+       $categoryTitle = CategoryTitle::findOrFail($id);
 
        $data = [
-           'description'=> $request->has('description')? $request->description: $category->description,
-           'active' =>$request->has('active')? $request->active: $category->active
+           'category_id'=> $request->has('category_id')? $request->category_id: $categoryTitle->category_id,
+           'description'=> $request->has('description')? $request->description: $categoryTitle->description,
+           'language_id' =>  $request->has('language_id')? $request->language_id: $categoryTitle->language_id,
+           'active' =>$request->has('active')? $request->active: $categoryTitle->active
        ];
 
-        $category->update($data);
+        $categoryTitle->update($data);
 
-       return response($category, 200);
+       return response($categoryTitle, 200);
     }
 
     /**
@@ -109,10 +115,10 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //$user =  auth()->user()->id;
-        $category = Category::findOrFail($id);
+        $categoryTitle = CategoryTitle::findOrFail($id);
 
         if($category->delete()) {
-            return response($category,200);
+            return response($categoryTitle,200);
         }
     }
 }

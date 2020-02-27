@@ -86,10 +86,10 @@ class QuestionPoolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validationData = $request->validate([
-            'question' => 'required|string',
-            'language_id' => 'required|integer'
-        ]);
+        // $validationData = $request->validate([
+        //     'question' => 'required|string',
+        //     'language_id' => 'required|integer'
+        // ]);
 
       // $user =  auth()->user()->id;
        $questionPool = QuestionPool::findOrFail($id);

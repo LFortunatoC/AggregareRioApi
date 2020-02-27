@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\MenuTitleDesc;
 use App\Http\Resources\MenuTitleDesc as MenuTitleDescResource;
@@ -93,14 +92,8 @@ class MenuTitleDescController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validationData = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'menu_id' => 'required|integer',
-            'language_id' => 'required|integer'
-        ]);
 
-       $user =  auth()->user()->id;
+       //$user =  auth()->user()->id;
        $menuTitleDesc = MenuTitleDesc::findOrFail($id);
 
        $data = [
