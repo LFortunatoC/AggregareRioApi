@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\SubCategory;
 use App\Http\Resources\SubCategory as SubCategoryResource;
-
+use App\SubCategory;
 use App\Category;
 
 class SubCategoryController extends Controller
@@ -43,7 +43,7 @@ class SubCategoryController extends Controller
             'description' => 'required|string',
         ]);
 
-        $user =  User::findOrFail(auth()->user()->id);
+        //$user =  User::findOrFail(auth()->user()->id);
         
         $newSubCategory = SubCategory::create([
             'description' => $request->description,
@@ -62,7 +62,6 @@ class SubCategoryController extends Controller
     public function show($id)
     {
         $subcategory = SubCategory::findOrFail($id);
-
         return response($subcategory,200);
     }
 
@@ -90,7 +89,7 @@ class SubCategoryController extends Controller
             'description' => 'required|string',
         ]);
 
-       $user =  auth()->user()->id;
+       //$user =  auth()->user()->id;
        $subcategory = SubCategory::findOrFail($id);
 
        $data = [
@@ -111,7 +110,7 @@ class SubCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $user =  auth()->user()->id;
+        //$user =  auth()->user()->id;
         $subcategory = SubCategory::findOrFail($id);
 
         if($subcategory->delete()) {

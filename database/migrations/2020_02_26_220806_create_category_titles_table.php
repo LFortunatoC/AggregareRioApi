@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateItensTable extends Migration
+class CreateCategoryTitlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateItensTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('category_titles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->unsignedBigInteger('subCategory_id');
-            $table->foreign('subCategory_id')->references('id')->on('sub_categories')->onDelete('cascade');
-            $table->unsignedBigInteger('menu_id');
-            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
-            $table->string('picturePath')->nullable($value=true);
-            $table->float('value');
-            $table->boolean('active');
+            $table->unsignedBigInteger('language_id');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -35,6 +31,6 @@ class CreateItensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('category_titles');
     }
 }

@@ -13,7 +13,7 @@ class CreateItemOrderTable extends Migration
      */
     public function up()
     {
-        Schema::create('ItemOrders', function (Blueprint $table) {
+        Schema::create('item_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
@@ -33,6 +33,6 @@ class CreateItemOrderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ItemOrders');
+        Schema::dropIfExists('item_orders');
     }
 }

@@ -65,6 +65,14 @@ Route::/*middleware('auth:api')->*/delete('order/{id}', 'OrderController@destroy
 Route::get('order', 'OrderController@index');
 Route::get('order/{id}', 'OrderController@show');
 
+//Routes for Item Order
+Route::/*middleware('auth:api')->*/post('itemorder', 'ItemOrderController@store');
+Route::/*middleware('auth:api')->*/patch('itemorder/{id}', 'ItemOrderController@update');
+Route::/*middleware('auth:api')->*/delete('itemorder/{id}', 'ItemOrderController@destroy');
+Route::get('itemorder', 'ItemOrderController@index');
+Route::get('itemorder/{id}', 'ItemOrderController@show');
+Route::get('{order_id}/itemorder', 'ItemOrderController@getItemsofAnOrder');
+
 //Routes for Item
 Route::/*middleware('auth:api')->*/post('item', 'ItemController@store');
 Route::/*middleware('auth:api')->*/patch('item/{id}', 'ItemController@update');
@@ -79,6 +87,14 @@ Route::/*middleware('auth:api')->*/delete('promotion/{id}', 'PromotionController
 Route::get('promotion', 'PromotionController@index');
 Route::get('promotion/{id}', 'PromotionController@show');
 
+//Routes for Question Pool
+Route::/*middleware('auth:api')->*/post('questionpool', 'QuestionPoolController@store');
+Route::/*middleware('auth:api')->*/patch('questionpool/{id}', 'QuestionPoolController@update');
+Route::/*middleware('auth:api')->*/delete('questionpool/{id}', 'QuestionPoolController@destroy');
+Route::get('questionpool', 'QuestionPoolController@index');
+Route::get('questionpool/{id}', 'QuestionPoolController@show');
+
+/////// Translation Tables ////////////////////////////////////////////////////////
 
 //Routes for Item Title Desc
 Route::/*middleware('auth:api')->*/post('itemtitledesc', 'ItemTitleDescriptionController@store');
@@ -96,10 +112,16 @@ Route::/*middleware('auth:api')->*/delete('menutitledesc/{id}', 'MenuTitleDescCo
 Route::get('menutitledesc', 'MenuTitleDescController@index');
 Route::get('menutitledesc/{id}', 'MenuTitleDescController@show');
 
+//Routes for Category Title
+Route::/*middleware('auth:api')->*/post('categorytitle', 'CategoryTitleController@store');
+Route::/*middleware('auth:api')->*/patch('categorytitle/{id}', 'CategoryTitleController@update');
+Route::/*middleware('auth:api')->*/delete('categorytitle/{id}', 'CategoryTitleController@destroy');
+Route::get('categorytitle', 'CategoryTitleController@index');
+Route::get('categorytitle/{id}', 'CategoryTitleController@show');
 
-//Routes for Question Pool
-Route::/*middleware('auth:api')->*/post('questionpool', 'QuestionPoolController@store');
-Route::/*middleware('auth:api')->*/patch('questionpool/{id}', 'QuestionPoolController@update');
-Route::/*middleware('auth:api')->*/delete('questionpool/{id}', 'QuestionPoolController@destroy');
-Route::get('questionpool', 'QuestionPoolController@index');
-Route::get('questionpool/{id}', 'QuestionPoolController@show');
+//Routes for SubCategory Title
+Route::/*middleware('auth:api')->*/post('subcategorytitle', 'SubCategoryTitleController@store');
+Route::/*middleware('auth:api')->*/patch('subcategorytitle/{id}', 'SubCategoryTitleController@update');
+Route::/*middleware('auth:api')->*/delete('subcategorytitle/{id}', 'SubCategoryTitleController@destroy');
+Route::get('subcategorytitle', 'SubCategoryTitleController@index');
+Route::get('subcategorytitle/{id}', 'SubCategoryTitleController@show');

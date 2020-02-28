@@ -13,16 +13,16 @@ class CreateMenuTitleDescsTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_Title_Descs', function (Blueprint $table) {
+        Schema::create('menu_title_descs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('menu_id');
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
             $table->unsignedBigInteger('language_id');
-            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('no action');
             $table->string('title');
             $table->string('description');
-            $table->string('alterText1');
-            $table->string('alterText2');
+            $table->string('altText1');
+            $table->string('altText2');
             $table->boolean('active');
             $table->timestamps();
         });
@@ -35,6 +35,6 @@ class CreateMenuTitleDescsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_Title_Descs');
+        Schema::dropIfExists('menu_title_descs');
     }
 }

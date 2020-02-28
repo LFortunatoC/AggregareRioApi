@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
-use App\Http\Resources\Category as CategoryResource;
-class CategoryController extends Controller
+use App\SubCategoryTitle;
+use App\Http\Resources\SubCategoryTitle as SubCategoryTitleResource;
+
+class SubCategoryTitleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(15);
-        return CategoryResource::collection($categories);
+        $subCategorieTitles = SubCategoryTitle::paginate(15);
+        return SubCategoryTitleResource::collection($subCategorieTitles);
     }
 
     /**
@@ -37,17 +38,21 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
+            'sub_category_id'=> 'required|integer',
             'description' => 'required|string',
+            'language_id'=> 'required|integer'
         ]);
 
         //$user =  User::findOrFail(auth()->user()->id);
         
-        $newCategory = Category::create([
+        $newSubCategoryTitle = SubCategoryTitle::create([
+            'sub_category_id'=> $request->sub_category_id,
             'description' => $request->description,
-            'active'=> true,
+            'language_id'=> $request->language_id,
+            'active'=> true
         ]);
 
-        return response($newCategory, 201);
+        return response($newSubCategoryTitle, 201);
     }
 
     /**
@@ -58,9 +63,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
-
-        return response($category,200);
+        $subCategoryTitle = SubCategoryTitle::findOrFail($id);
+        return response($subCategoryTitle,200);
     }
 
     /**
@@ -88,16 +92,18 @@ class CategoryController extends Controller
         ]);
 
        //$user =  auth()->user()->id;
-       $category = Category::findOrFail($id);
+       $subCategoryTitle = SubCategoryTitle::findOrFail($id);
 
        $data = [
-           'description'=> $request->has('description')? $request->description: $category->description,
-           'active' =>$request->has('active')? $request->active: $category->active
+           'sub_category_id'=> $request->has('sub_category_id')? $request->sub_category_id: $subCategoryTitle->sub_category_id,
+           'description'=> $request->has('description')? $request->description: $subCategoryTitle->description,
+           'language_id' =>  $request->has('language_id')? $request->language_id: $subCategoryTitle->language_id,
+           'active' =>$request->has('active')? $request->active: $subCategoryTitle->active
        ];
 
-        $category->update($data);
+        $subCategoryTitle->update($data);
 
-       return response($category, 200);
+       return response($subCategoryTitle, 200);
     }
 
     /**
@@ -108,19 +114,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //$user =  auth()->user()->id;
-        $category = Category::findOrFail($id);
+       //$user =  auth()->user()->id;
+       $subCategoryTitle = SubCategoryTitle::findOrFail($id);
 
-        if($category->delete()) {
-            return response($category,200);
-        }
-    }
-
-    public function search(Request $request, $language_id)
-    {
-
-        $category = Category::where('language_id', '=', $language_id)->get();
-        
-        return response($category,200);
+       if($subCategoryTitle->delete()) {
+           return response($subCategoryTitle,200);
+       }
     }
 }
