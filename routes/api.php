@@ -23,6 +23,8 @@ Route::/*middleware('auth:api')->*/patch('category/{id}', 'CategoryController@up
 Route::/*middleware('auth:api')->*/delete('category/{id}', 'CategoryController@destroy');
 Route::get('category', 'CategoryController@index');
 Route::get('category/{id}', 'CategoryController@show');
+Route::get('category/searchcategory/{language_id}', 'CategoryController@search');
+
 
 //Routes for SubCategory
 Route::/*middleware('auth:api')->*/post('subcategory', 'SubCategoryController@store');
@@ -30,6 +32,8 @@ Route::/*middleware('auth:api')->*/patch('subcategory/{id}', 'SubCategoryControl
 Route::/*middleware('auth:api')->*/delete('subcategory/{id}', 'SubCategoryController@destroy');
 Route::get('subcategory', 'SubCategoryController@index');
 Route::get('subcategory/{id}', 'SubCategoryController@show');
+Route::get('subcategory/searchsubcategory/{language_id}', 'SubCategoryController@search');
+
 
 //Routes for Language
 Route::/*middleware('auth:api')->*/post('language', 'LanguageController@store');
@@ -92,12 +96,14 @@ Route::get('questionpool/{id}', 'QuestionPoolController@show');
 
 /////// Translation Tables ////////////////////////////////////////////////////////
 
-//Routes for ItemTitleDesc
+//Routes for Item Title Desc
 Route::/*middleware('auth:api')->*/post('itemtitledesc', 'ItemTitleDescriptionController@store');
 Route::/*middleware('auth:api')->*/patch('itemtitledesc/{id}', 'ItemTitleDescriptionController@update');
 Route::/*middleware('auth:api')->*/delete('itemtitledesc/{id}', 'ItemTitleDescriptionController@destroy');
 Route::get('itemtitledesc', 'ItemTitleDescriptionController@index');
 Route::get('itemtitledesc/{id}', 'ItemTitleDescriptionController@show');
+Route::get('itemtitledesc/searchtitledesc/{language_id}', 'ItemTitleDescriptionController@search');
+
 
 //Routes for Menu Title Desc
 Route::/*middleware('auth:api')->*/post('menutitledesc', 'MenuTitleDescController@store');
@@ -119,5 +125,3 @@ Route::/*middleware('auth:api')->*/patch('subcategorytitle/{id}', 'SubCategoryTi
 Route::/*middleware('auth:api')->*/delete('subcategorytitle/{id}', 'SubCategoryTitleController@destroy');
 Route::get('subcategorytitle', 'SubCategoryTitleController@index');
 Route::get('subcategorytitle/{id}', 'SubCategoryTitleController@show');
-
-

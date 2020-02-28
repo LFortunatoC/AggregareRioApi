@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -58,7 +59,7 @@ class ItemOrderController extends Controller
         ]);
 
         return response($newItemOrder, 201);
-    }
+   }
 
     /**
      * Display the specified resource.
@@ -69,7 +70,6 @@ class ItemOrderController extends Controller
     public function show($id)
     {
         $itemOrder = ItemOrder::findOrFail($id);
-
         return response($itemOrder,200);
     }
 
@@ -93,7 +93,6 @@ class ItemOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         //$user =  auth()->user()->id;
         $itemOrder = ItemOrder::findOrFail($id);
 
@@ -133,6 +132,5 @@ class ItemOrderController extends Controller
     {
         $itemOfOrder = ItemOrder::ofOrder($order_id)->with('items')->get();
         return ItemOrderResource::collection($itemOfOrder);
-
     }
 }

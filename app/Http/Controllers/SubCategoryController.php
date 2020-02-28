@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\SubCategory;
 use App\Http\Resources\SubCategory as SubCategoryResource;
 use App\SubCategory;
 use App\Category;
@@ -115,5 +116,13 @@ class SubCategoryController extends Controller
         if($subcategory->delete()) {
             return response($subcategory,200);
         }
+    }
+
+    public function search(Request $request, $language_id)
+    {
+
+        $subcategory = SubCategory::where('language_id', '=', $language_id)->get();
+        
+        return response($subcategory,200);
     }
 }
