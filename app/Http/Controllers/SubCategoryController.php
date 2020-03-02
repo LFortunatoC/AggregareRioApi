@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\SubCategory;
+use App\SubCategoryTitle;
+
 use App\Http\Resources\SubCategory as SubCategoryResource;
-use App\SubCategory;
 use App\Category;
 
 class SubCategoryController extends Controller
@@ -120,9 +121,7 @@ class SubCategoryController extends Controller
 
     public function search(Request $request, $language_id)
     {
-
-        $subcategory = SubCategory::where('language_id', '=', $language_id)->get();
-        
+        $subcategory = SubCategoryTitle::where('language_id', '=', $language_id)->get();
         return response($subcategory,200);
     }
 }
