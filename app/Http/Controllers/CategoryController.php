@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\CategoryTitle;
 use App\Http\Resources\Category as CategoryResource;
 class CategoryController extends Controller
 {
@@ -118,9 +119,7 @@ class CategoryController extends Controller
 
     public function search(Request $request, $language_id)
     {
-
-        $category = Category::where('language_id', '=', $language_id)->get();
-        
+        $category = CategoryTitle::where('language_id', '=', $language_id)->get();     
         return response($category,200);
     }
 }

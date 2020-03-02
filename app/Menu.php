@@ -12,4 +12,7 @@ class Menu extends Model
         return $this->hasOne('App\Language', 'id', 'defaultLang');
     } 
 
+    public function titleAndDescriptions() {
+        return $this->hasMany('App\MenuTitleDesc', 'menu_id', 'id');
+    }
 }

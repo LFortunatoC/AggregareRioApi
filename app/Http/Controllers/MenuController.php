@@ -7,6 +7,7 @@ use App\Http\Resources\Menu as MenuResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 use App\Menu;
+use App\MenuTitleDesc;
 use App\Constants;
 use File;
 
@@ -109,10 +110,24 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $menu = Menu::with('language')->findOrFail($id);
+       
+        $menu = Menu::findOrFail($id);
 
+        $language_id = $menu->defaultLang;
+
+        if ($request->has('language_id')){
+            $language_id = $request->language_id; 
+        }
+
+        $titleDesc = MenuTitleDesc::OfMenuAndLanguage($menu->id,$language_id)->get();
+        if(sizeof($titleDesc) >0) {
+            $menu ['title'] = $titleDesc[0]['title'];
+            $menu ['description']= $titleDesc[0]['description'];
+            $menu ['altText1']= $titleDesc[0]['altText1'];
+            $menu ['altText2']= $titleDesc[0]['altText2'];
+        }
         return response($menu,200);
     }
 
