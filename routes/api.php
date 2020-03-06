@@ -79,6 +79,8 @@ Route::/*middleware('auth:api')->*/patch('item/{id}', 'ItemController@update');
 Route::/*middleware('auth:api')->*/delete('item/{id}', 'ItemController@destroy');
 Route::get('item', 'ItemController@index');
 Route::get('item/{id}', 'ItemController@show');
+Route::get('item/search/{menu_id}', 'ItemController@searchItems');
+
 
 //Routes for Promotion
 Route::/*middleware('auth:api')->*/post('promotion', 'PromotionController@store');

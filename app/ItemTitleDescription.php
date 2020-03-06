@@ -9,9 +9,15 @@ class ItemTitleDescription extends Model
     protected $fillable =['id','item_id', 'language_id','title','description','active','created_at','updated_at'];
 
 
-    public function scopeOfLanguage($query, $id)
+    public function scopeOfItemLanguage($query, $item_id, $language_id)
     {
-        return $query->where('language_id', $id);
+        return $query->where(['item_id'=>$item_id,'language_id'=>$language_id]);
+
+    }
+
+    public function scopeOfLanguage($query, $language_id)
+    {
+        return $query->where('language_id',$language_id);
 
     }
     
