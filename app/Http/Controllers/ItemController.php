@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\Item as ItemResource;
-//use Illuminate\Support\Facades\Storage;
+use App\ItemTitleDescription;
 use Illuminate\Support\Arr;
 use App\Category;
 use App\SubCategory;
@@ -175,6 +175,26 @@ class ItemController extends Controller
        return response($item, 200);
     }
 
+    public function searchItems(Request $request, $menu_id)
+    {
+        $itemList = array();
+        $items = Item::where(['menu_id'=>$menu_id,'subCategory_id'=> $request->subcategory_id])->get();
+        
+        foreach($items as $item) {
+
+            $titleDesc = ItemTitleDescription::OfItemLanguage($item->id, $request->language_id)->get();
+
+            if(sizeof($titleDesc) >0) {
+                $item ['title'] = $titleDesc[0]['title'];
+                $item ['description']= $titleDesc[0]['description'];
+            }
+            array_push($itemList, $item);
+        }
+
+        return response($itemList, 200);
+
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -197,4 +217,6 @@ class ItemController extends Controller
             return response($item,200);
         }
     }
+
+    
 }
