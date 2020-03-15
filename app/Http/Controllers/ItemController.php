@@ -64,11 +64,11 @@ class ItemController extends Controller
             
             $menu = Menu::findOrfail($request->menu_id);
 
-            $clientId = 22;//$menu->client_id;
+            //$clientId = 22;//$menu->client_id;
 
             $name = $file->getClientOriginalName();
 
-            $picturePath = self::DEFAULT_ITEM_IMG_STORAGE_PATH .'/'. $clientId;
+            $picturePath = self::DEFAULT_ITEM_IMG_STORAGE_PATH; // .'/'. $clientId;
 
             if (!File::exists($picturePath.'/'.$name)) {
                 //abort( response()->json('File already uploaded', 422) );
@@ -146,11 +146,11 @@ class ItemController extends Controller
             
             //$menu = Menu::findOrfail($request->menu_id);
 
-            $clientId = 22;// $menu->client_id;
+           // $clientId = 22;// $menu->client_id;
 
             $name = $file->getClientOriginalName();
 
-            $picturePath = self::DEFAULT_ITEM_IMG_STORAGE_PATH .'/'. $clientId;
+            $picturePath = self::DEFAULT_ITEM_IMG_STORAGE_PATH; // .'/'. $clientId;
 
             if (File::exists($picturePath.'/'.$name)) {
                 //abort( response()->json('File already uploaded', 422) );

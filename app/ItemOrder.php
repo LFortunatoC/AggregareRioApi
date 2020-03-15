@@ -9,7 +9,7 @@ class ItemOrder extends Model
     protected $fillable =['id','item_id','order_id', 'qty','currPrice','canceled'];
 
     public function items() {
-        return $this->hasOne('App\ItemTitleDescription', 'id', 'item_id');
+        return $this->hasMany('App\ItemTitleDescription', 'item_id', 'item_id');
     }
 
     public function scopeOfOrder ($query, $id)
