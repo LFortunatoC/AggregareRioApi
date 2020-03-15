@@ -10,6 +10,6 @@ class Order extends Model
 
 
     public function items() {
-        return $this->hasMany('App\ItemOrder', 'order_id', 'id');
+        return $this->hasMany('App\ItemOrder', 'order_id', 'id')->select(['order_id','item_id','qty','currPrice','canceled']);
     }
 }

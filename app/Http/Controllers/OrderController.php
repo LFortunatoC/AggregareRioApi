@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Http\Resources\Order as OrderResource;
+use App\ItemTitleDescription;
 use Illuminate\Support\Arr;
 use App\ItemOrder;
 
@@ -87,10 +88,17 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $req, $id)
     {
-        $order = Order::with('items')->findOrFail($id);
+        $order= Order::with('items')->findOrFail($id);
 
+         foreach($order->items as $key=>$itemlist) {
+             $item = ItemTitleDescription::where(['language_id'=> $req->language_id,'item_id'=> $itemlist->item_id ])->pluck('title');           
+             if(sizeof($item) >0) { 
+             $order->items[$key]->title = $item[0];
+            }
+         }
+        
         return response($order,200);
     }
 

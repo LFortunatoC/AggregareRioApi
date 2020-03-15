@@ -69,7 +69,8 @@ class ItemOrderController extends Controller
      */
     public function show($id)
     {
-        $itemOrder = ItemOrder::findOrFail($id);
+        //$itemOrder = ItemOrder::findOrFail($id);
+        $itemOrder = ItemOrder::with('items')->find($id);
         return response($itemOrder,200);
     }
 
