@@ -17,9 +17,13 @@ class EvaluationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $evaluations = Evaluation::paginate(15);
+        if ($request->has('order_id')) {
+            $evaluations = Evaluation::where('order_id',$request->order_id)->paginate(15);
+        } else {
+            $evaluations = Evaluation::paginate(15);
+        }
         return EvaluationResource::collection($evaluations);
     }
 
