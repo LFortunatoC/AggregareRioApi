@@ -32,7 +32,7 @@ Route::/*middleware('auth:api')->*/patch('subcategory/{id}', 'SubCategoryControl
 Route::/*middleware('auth:api')->*/delete('subcategory/{id}', 'SubCategoryController@destroy');
 Route::get('subcategory', 'SubCategoryController@index');
 Route::get('subcategory/{id}', 'SubCategoryController@show');
-Route::get('subcategory/searchsubcategory/{language_id}', 'SubCategoryController@search');
+Route::get('subcategory/searchsubcategory/{category_id}/{language_id}', 'SubCategoryController@search');
 
 
 //Routes for Language

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\SubCategory;
 use App\SubCategoryTitle;
-
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\SubCategory as SubCategoryResource;
 use App\Category;
 
@@ -42,12 +42,19 @@ class SubCategoryController extends Controller
     {
         $data = $request->validate([
             'description' => 'required|string',
+            'category_id'=>  'required|integer',
         ]);
 
         //$user =  User::findOrFail(auth()->user()->id);
+        $category = Category::find($request->category_id);
+
+        if (!$category) {
+            abort( response()->json('Invalid category Id', 422) );
+        }
         
         $newSubCategory = SubCategory::create([
             'description' => $request->description,
+            'category_id' => $request->category_id,
             'active'=> true
         ]);
 
@@ -95,6 +102,7 @@ class SubCategoryController extends Controller
 
        $data = [
            'description'=> $request->has('description')? $request->description: $subcategory->description,
+           'category_id'=> $request->has('category_id')? $request->category_id: $subcategory->category_id,
            'active' =>$request->has('active')? $request->active: $subcategory->active
        ];
 
@@ -119,9 +127,16 @@ class SubCategoryController extends Controller
         }
     }
 
-    public function search(Request $request, $language_id)
+    public function search($category_id, $language_id)
     {
-        $subcategory = SubCategoryTitle::where('language_id', '=', $language_id)->get();
-        return response($subcategory,200);
+
+        $subCategories = DB::table('sub_categories')
+            ->join ('sub_category_titles', function ($join) use($category_id, $language_id){
+            $join->on('sub_categories.id','=','sub_category_titles.sub_category_id')
+            ->where(['sub_categories.category_id'=>$category_id,'sub_category_titles.language_id'=>$language_id]);
+        })
+        ->pluck('sub_category_titles.description');
+
+        return response($subCategories,200);
     }
 }
