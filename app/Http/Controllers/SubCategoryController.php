@@ -135,7 +135,7 @@ class SubCategoryController extends Controller
             $join->on('sub_categories.id','=','sub_category_titles.sub_category_id')
             ->where(['sub_categories.category_id'=>$category_id,'sub_category_titles.language_id'=>$language_id]);
         })
-        ->pluck('sub_category_titles.description');
+        ->get();
 
         return response($subCategories,200);
     }
