@@ -97,10 +97,16 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $req, $id)
     {
         $item = Item::findOrFail($id);
-
+        if ($req->has('language_id')) {
+            $titleDesc = ItemTitleDescription::OfItemLanguage($id, $req->language_id)->first();
+            if($titleDesc) {
+                $item ['title'] = $titleDesc['title'];
+                $item ['description']= $titleDesc['description'];
+            }
+        }     
         return response($item,200);
     }
 
